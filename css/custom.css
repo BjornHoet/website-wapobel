@@ -1,0 +1,899 @@
+/*---  GENERAL  ---*/
+/*-----------------*/
+.color-body {
+	color: #858796;
+	}
+
+.bodyHidden {
+	opacity: 0.5;
+}
+	
+.bg-login-image {
+    background: url(../img/logo-medium.png);
+    background-position: center;
+	background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, opacity 0.2s ease;	
+	}
+
+.bg-login-image:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+}
+
+.bg-login-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0); /* transparant */
+    transition: background 0.2s ease;
+}
+
+.bg-login-image:hover::after {
+    background: rgba(255, 255, 255, 0.10); /* lichte overlay */
+}
+
+.logo-sm {
+	max-width: 120px;
+	}
+
+form.user .btn-size {
+  width: 120px;
+}
+
+.cellError {
+	color: #ffffff !important;
+	background-color: #ff0000 !important;
+	}
+
+.login-height {
+	min-height: 415px;	
+	}
+	
+.datepicker-radius {
+	border-radius: 10rem !important;
+	}
+	
+.table-uline {
+	border-bottom: 1pt solid black;
+	}
+	
+.table-left-line {
+	border-left: 1px solid #666666 !important;
+}
+
+.headerButtons {
+	width: 100%;
+	display: flex
+	}
+
+.headerFirstPart {
+	width: 150px;
+	}
+
+.table th, .table td {
+    padding: 0.25rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+	}
+
+.form-control {
+	padding: 0.375rem 0.5rem;
+}
+
+.input-group-outline {
+	width: 500px;
+}
+
+.postTotaal {
+	background-color: rgb(90, 92, 105);
+	color: white;
+	font-size: .9rem;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerMiddle {
+    flex: 1; /* neemt alle beschikbare ruimte */
+	margin-left: 50px;
+}	
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper .toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+}
+
+.password-wrapper .toggle-password:hover {
+    opacity: 1;
+}
+
+.password-wrapper .toggle-passwordCheck {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+}
+
+.password-wrapper .toggle-passwordCheck:hover {
+    opacity: 1;
+}
+
+.field-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d; /* grijzige kleur passend bij Bootstrap */
+}
+
+.field-icon:hover {
+  color: #495057; /* iets donkerder bij hover */
+}
+
+/* kleine visual polish */
+.card-header .text-muted { color: #6c757d; }
+.table-sm th, .table-sm td { vertical-align: middle; }
+.table-responsive { overflow-x: auto; }
+.small.text-muted { color: #6c757d; }
+
+.bg-darker {
+	background-color: #dee2e6;       /* subtiel donkerder dan tbody */
+    color: #212529;                  /* donkere tekst */
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.table-row-inactive {
+    color: #d1d3e2 !important;
+    background-color: #f7f7f7;
+    transition: all 0.3s ease;
+}
+
+/* Fade-out via opacity + height */
+.table-row-inactive.hidden {
+    opacity: 0;
+    height: 0;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.table thead.thead-light {
+    background-color: #f1f3f5; /* nog donkerder, sterkere header */
+    color: #5a5c69 !important;            /* bijna zwarte tekst voor max contrast */
+}
+
+.table .thead-light th {
+    color: #5a5c69 !important;
+    background-color: #f1f3f5;
+    border-color: #e3e6f0;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5; /* lichte hover */
+}
+
+/* Footer styling */
+.table-footer {
+    background-color: #dee2e6;       /* subtiel donkerder dan tbody */
+    color: #5a5c69 !important;                  /* donkere tekst */
+    border-top: 2px solid #adb5bd;   /* duidelijke scheiding van body */
+}
+
+.table-footer th, 
+.table-footer td {
+    vertical-align: middle;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.table-footer .text-right {
+    font-weight: 700;                /* benadruk totalen */
+}
+
+/*-- Teksthoogte bij toevoegen factuur modal --*/
+.field-value {
+    min-height: 1.2rem;   /* ± hoogte van 1 tekstregel */
+    line-height: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+
+#fixedHeaderIcon {
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+#fixedHeaderIcon.active {
+  color: #28a745 !important;            /* groen = actief */
+  transform: rotate(-20deg); /* “vastgepind”-gevoel */
+}
+
+.modal-dimmed {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/*---  LOADER  ---*/
+/*----------------*/
+#loader {
+	border: 12px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 12px solid #444444;
+	width: 70px;
+	height: 70px;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.center {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+
+/*---  TEXT ITEMS  ---*/
+/*--------------------*/
+.text-md {
+  font-size: 1.05rem;
+}
+
+.text-s {
+  font-size: .9rem;
+}
+
+.text-black {
+	color: #000000 !important;
+}
+
+.text-bold {
+	font-weight: bold;
+	}
+
+.text-line-height-m {
+	line-height: 1.5;
+	}
+
+.text-red {
+	color: red;
+	}
+
+.text-inactive {
+	color: #d1d3e2 !important;
+}
+
+/*---  BORDERS  ---*/
+/*-----------------*/
+.border-size-s {
+	margin: auto;
+	max-width: 98%;
+	}
+
+.border-size-m {
+	margin: auto;
+	max-width: 95%;
+	}
+
+.border-size-lg {
+	margin: auto;
+	max-width: 90%;
+	}
+
+.border-left-s {
+	border-left: 1px solid #000000 !important;
+	}
+
+.border-left-m {
+	border-left: 2px solid #000000 !important;
+	}
+
+.border-right-s {
+	border-right: 1px solid #000000 !important;
+	}	
+	
+.border-top-s {
+	border-top: 1px solid #000000 !important;
+	}
+	
+.border-top-m {
+	border-top: 1px solid #000000 !important;
+	}
+
+.border-m {
+	border: 2px solid #000000 !important;
+	}
+
+
+.border-left-s-cb {
+	border-left: 1px solid #858796 !important;
+	}
+
+.border-left-m-cb {
+	border-left: 2px solid #858796 !important;
+	}
+	
+.border-top-s-cb {
+	border-top: 1px solid #858796 !important;
+	}
+	
+.border-top-m-cb {
+	border-top: 2px solid #858796 !important;
+	}
+
+.border-m-cb {
+	border: 2px solid #858796 !important;
+	}
+
+.record-count {
+    display: inline-block;
+    min-width: 25px;     /* groter dan 24px */
+    height: 25px;        /* past bij min-width */
+    line-height: 25px;   /* centreren van het cijfer */
+    border-radius: 50%;  /* blijft rond */
+    background-color: #4e73df;
+    color: white;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 0 6px;      /* extra ruimte voor 3-cijferige getallen */
+    margin-left: 5px;
+    box-sizing: border-box; /* zodat padding wordt meegenomen */
+}
+
+/*---  BUTTONS  ---*/
+/*-----------------*/	
+#headerButtons { 
+	white-space: nowrap; 
+	}
+
+.childButtons { 
+	display: inline-block; 
+	}
+
+.readonlyInput {
+	background-color: #ffffff !important;
+	}
+
+.zbtn-xs {
+    padding: .35rem .4rem .25rem .4rem;
+    font-size: .875rem;
+    line-height: .7;
+    border-radius: .2rem
+}
+
+/*---  SIDEBAR  ---*/
+/*-----------------*/	
+/* Sidebar algemene tekst */
+.sidebar {
+  font-size: 0.8rem;
+}
+
+/* Menu items */
+.sidebar .nav-link span {
+  font-size: 0.8rem;
+}
+
+/* Headings (Navigatie, Billit, etc.) */
+.sidebar .sidebar-heading {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+/* Dropdowns (Jaar, Maand, Watering) */
+.sidebar select,
+.sidebar .form-control {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Collapse submenu items */
+.sidebar .collapse-item {
+  font-size: 0.7rem;
+}
+
+.sidebar .nav-item .nav-link {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  line-height: 1.2;
+  margin-left: 0.2rem;
+}
+
+#verversBillit {
+  font-size: 0.8rem;
+  display: block;
+  margin: 0 auto;  
+}
+
+@media (min-width: 768px) {
+    .sidebar .nav-item .nav-link {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem; 
+		padding-left: 1rem;
+        width: 14rem;
+    }
+
+    .sidebar .nav-item .nav-link span {
+        font-size: 0.8rem;
+        display: inline;
+    }	
+}
+
+.row-rek {
+    display: flex;
+    gap: 20px;
+    margin: 24px 0;
+    }
+
+button.link-btn {
+	font-size: 12px;
+	width: 200px;
+	height: 60px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #cfcfe0;
+    background: #eee;
+	color: #000;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: transform .08s ease, box-shadow .08s, background .2s, border-color .2s;
+  }
+  button.link-btn:hover:not(:disabled) { transform: scale(1.03); }
+
+    /* states */
+button.link-btn.selected { color: #fff; background-color: #2e59d9; border-color: #2653d4; box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5); }
+button.link-btn.linked   { color: #fff; background-color: #2e59d9; border-color: #2653d4; box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5); }
+button.link-btn.available{ color: #fff; background-color: #4e73df; border-color: #4e73df; opacity: 0.75; }
+button.link-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+#container-rek {
+  position: relative;
+  width: 100%;
+}
+
+#svgConns {
+  position: absolute;
+  inset: 0; /* shorthand for top/left/right/bottom = 0 */
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* lower layer inside a new stacking context */
+  pointer-events: none;
+}
+
+#row1,
+#row2 {
+  position: relative;
+  z-index: 2; /* ensure rows (and buttons) are ABOVE the SVG */
+}
+
+#container-rek .link-btn {
+  position: relative;
+  z-index: 3;
+}
+
+.toggle-icon {
+  transition: transform 0.2s ease;
+}
+
+/* draai 180° als collapse gesloten is */
+[data-toggle="collapse"][aria-expanded="false"] .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.controls { text-align: center; margin-top: 8px; }
+
+/* make images smaller in cells */
+.account-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: 6px;
+    }
+
+.pinned-row {
+      background-color: #f5f5f5 !important;
+      font-weight: bold;
+    }
+	
+.ag-row-first {
+	border-bottom: 1px solid #c0c4c8
+}	
+	
+/* AG Grid */
+/*---------*/	
+.ag-root-wrapper {
+	font-size: 12px !important;
+	font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Finer control */
+.ag-header-cell {
+	font-size: .7rem;
+	font-weight: bold;
+	padding-left: 15px;
+	padding-right: 5px;
+	text-align: center;	
+}
+
+/* Finer control */
+.ag-row {
+	font-size: 11.2px;
+}
+
+.ag-cell {
+    white-space: normal !important;
+    line-height: 2;
+	border-right: 1px solid #ccc; /* vertical line */
+	color: #3a3b45 !important;
+}
+
+.ag-floating-bottom .ag-cell {
+	border-right: 1px solid #6c757d; /* vertical line */
+}
+
+.ag-cell:not(.ag-cell-inline-editing) {
+	padding-left: 10px;
+	padding-right: 5px;
+}
+
+.ag-row-odd {
+  background-color: #ffffff;   /* white */
+}
+
+.ag-row-even {
+  background-color: #f5f5f5;   /* light grey */
+}
+
+.ag-row-odd {
+  background-color: #ffffff;   /* white */
+}
+
+#myGrid {
+  transition: height 0.25s ease;
+}
+
+#myGridRekening .ag-row-even {
+  background-color: #ffffff;   /* light grey */
+}
+
+#myGridInactief .ag-row-even {
+  background-color: #ffffff;   /* light grey */
+}
+
+#myGridRekening .ag-row {
+	font-size: 14px;
+}
+
+#myGridInactief .ag-row {
+	font-size: 14px;
+}
+
+#myGridIn {
+  transition: height 0.25s ease;
+  height: calc(100vh - 387px);
+  width: 100%;
+}
+
+#myGridOut {
+  transition: height 0.25s ease;
+  height: calc(100vh - 387px);
+  width: 100%;
+}
+
+.ag-header {
+  background-color: #5a5c69;  /* dark grey */
+  color: #fff;                /* white text */
+}
+
+/* center header label content (works across themes) */
+.header-center .ag-header-cell-label {
+  display: flex;            /* header already uses flex, but set it to be safe */
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically */
+}
+
+/* make sure the text itself is centered (in case of extra wrappers) */
+.header-center .ag-header-cell-label .ag-header-cell-text {
+  text-align: center;
+  width: 100%;
+}
+
+.header-center .ag-header-group-cell-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  white-space: pre-wrap !important;
+  font-size: .8rem;
+}
+ 
+/* If the column has the menu button and it pushes the text,
+   push the menu to the far right so the text can stay centered */
+.header-center .ag-header-cell-menu-button {
+  margin-left: auto;
+}
+
+.ag-cell.thick-right-border {
+  border-right: 1px solid #000;
+}
+
+/* Hide cells in pinned row except the first column */
+.last-row-hide {
+  display: none;
+}
+
+.last-row-hide-last-column {
+  border-right: 1px solid #000;
+}
+
+/* Style the merged cell in pinned row */
+.last-row-merged {
+  font-weight: bold;
+  text-align: left;
+  padding-left: 5px;
+  border-right: 0px;
+}
+
+.last-row-merged {
+	color: #fff !important;
+	border-right: 1px solid #000;
+}
+
+.ag-floating-bottom-container .ag-cell {
+	color: #fff !important;
+}
+
+.ag-header-row-column {
+	height: 30px !important;
+}
+
+.ag-row-hover .editable-highlight {
+	border: 1px solid #90ee90;      /* light green border */
+	box-sizing: border-box;         /* prevent shifting */
+	border-radius: 4px;             /* slightly rounded corners */
+	box-shadow: 0 2px 6px rgba(144, 238, 144, 0.4); /* light green glow */
+	background-color: rgba(144, 238, 144, 0.2);
+	}
+
+.status-paid {
+  font-weight: 700;
+}
+
+.custom-tooltip {
+  background: rgba(42, 42, 42, 0.8);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+.icon-grey {
+	color: #666666;
+}
+
+#cellPopup {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  background: #f44336;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: opacity 0.3s ease; /* smooth fade */
+}
+#cellPopup::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 8px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #f44336 transparent transparent;
+}
+
+/* Hoofdpost styling */
+.ag-theme-alpine .post-row .ag-cell {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Subpost blijft normaal */
+.ag-theme-alpine .subpost-row .ag-cell {
+    font-size: 13px;
+}
+
+/* Inspringing voor subposts */
+.ag-theme-alpine .subpost-indent {
+    padding-left: 20px !important;
+}
+
+/* Loading wheel */
+    /* Full-page overlay */
+    .jq-loader-overlay {
+      position: fixed;
+      inset: 0;                    /* top:0; right:0; bottom:0; left:0 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      z-index: 99999;
+      transition: opacity .18s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .jq-loader-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Loader card / container (optional white box) */
+    .jq-loader-box {
+      display:flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #111;
+      min-width: 140px;
+    }
+
+    /* Spinner (CSS) */
+    .jq-spinner {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 4px solid rgba(0,0,0,0.08);
+      border-top-color: rgba(0,0,0,0.75);
+      animation: jq-spin 0.9s linear infinite;
+      box-sizing: border-box;
+      flex: 0 0 36px;
+    }
+    @keyframes jq-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Optional message style */
+    .jq-loader-msg {
+      font-size: 14px;
+      line-height: 1.1;
+    }
+
+    /* Inline loader placed inside an element */
+    .jq-inline-loader {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.06);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+
+    /* Small spinner for inline */
+    .jq-spinner.small {
+      width: 18px;
+      height: 18px;
+      border-width: 3px;
+    }
+
+    /* Hide helper */
+    .jq-hidden {
+      display: none !important;
+    }
+	
+/* Add button tooltip */
+/* --- allow header cells to show overflowed tooltips --- */
+.ag-header-cell,
+.ag-header-cell .ag-header-cell-label,
+.ag-header-cell .ag-header-cell-label-container {
+  overflow: visible !important;
+  z-index: 2; /* allow the header contents to render above other grid parts */
+}
+
+/* --- tooltip styling on the button --- */
+.btn-tooltip {
+  position: relative;
+}
+
+/* tooltip bubble (top-right placement) */
+.btn-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -38px;        /* move it above the button */
+  right: -6px;       /* nudge to the top-right corner */
+  background-color: #333;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 9999;
+}
+
+/* small arrow under the tooltip (optional, simple centered arrow) */
+.btn-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -12px;      /* position so the triangle is just above the button */
+  right: 8px;      /* align with the tooltip bubble */
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333; /* triangle pointing up (so it visually connects to the bubble) */
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  z-index: 9999;
+}
+
+.btn-tooltip:hover::after,
+.btn-tooltip:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Empty row color */
+.row-empty {
+  background-color: #ffe5b4; /* light gray background */
+  color: #6c757d;            /* optional: darker gray text */
+  font-style: italic;         /* optional: italicize text */
+}	
+
+/* Remove any forced background on hover to let AG Grid theme take over */
+.row-empty.ag-row-hover,
+.row-empty.ag-row-focus {
+  background-color: inherit; /* use the AG Grid hover color */
+}
+
+#fixedMessageContainer {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 2000; /* Above modals */
+	width: 300px;
+	pointer-events: none; /* clicks go "through" except buttons */
+}
+
+.floating-alert {
+	pointer-events: auto;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
