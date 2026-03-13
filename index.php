@@ -1009,8 +1009,8 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 	  {
 		  headerName: "",
 		  field: "actions",
-		  minWidth: 65, maxWidth: 65,
 		  suppressMovable: true,
+		  minWidth: 65, maxWidth: 65,
 		  cellStyle: { display: "flex", justifyContent: "center", alignItems: "center", gap: "8px" }, // space between icons
 		  cellClass: params => params.node.rowPinned ? 'thick-right-border' : '',
 
@@ -1353,7 +1353,21 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 
 		  // Column state herstellen
 		  const savedState = JSON.parse(localStorage.getItem('gridColumnState') || '[]');
-		  if (savedState.length) gridApi.applyColumnState({ state: savedState, applyOrder: false });
+			if (savedState.length) {
+
+				// forceer boekId altijd verborgen
+				savedState.forEach(col => col.hide = false); // forceer zichtbaar
+				const boekIdCol = savedState.find(col => col.colId === 'boekId');
+				
+				if (boekIdCol) {
+					boekIdCol.hide = true;
+				} else {
+					// als hij niet in state zit, voeg hem toe
+					savedState.push({ colId: 'boekId', hide: true });
+				}
+
+				gridApi.applyColumnState({ state: savedState, applyOrder: true });
+			}
 
 		  // Pas columns aan NA height transition
 		  const applySize = () => params.api.sizeColumnsToFit();
@@ -1490,6 +1504,20 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 	function onFilterTextBoxChanged() {
 		gridApi.setGridOption("quickFilterText", document.getElementById("filter-text-box").value,
 		);
+	}
+
+	function getAllColumnDefs(columnDefs) {
+		const result = [];
+
+		columnDefs.forEach(col => {
+			if (col.children) {
+				result.push(...getAllColumnDefs(col.children));
+			} else {
+				result.push(col);
+			}
+		});
+
+		return result;
 	}
 
 	function refreshAll() {
