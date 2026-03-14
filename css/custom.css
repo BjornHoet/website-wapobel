@@ -959,6 +959,9 @@ button.link-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !i
 /* Override inline styles for cells within active post rows */
 .ag-theme-alpine .post-row .ag-cell[style] { color: #3a3b45 !important; }
 
+/* Override inline styles for cells within active post rows */
+.ag-theme-balham .ag-cell[style] { color: #3a3b45 !important; }
+
 /* Hide the 'Add subpost' button when a post is inactive */
 .ag-theme-alpine .post-row.table-row-inactive .fa-plus {
   display: none !important;

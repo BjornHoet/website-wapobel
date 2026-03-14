@@ -781,7 +781,8 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 
 			<img id="newsImage"
 				 class="img-fluid rounded mb-3"
-				 alt="News Image" />
+				 alt="News Image" 
+				 style="max-height: 400px" />
 
 			<p id="newsText" class="mb-4 text-gray-800"></p>
 
@@ -932,7 +933,7 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 	]; */
 
 // v2.5
-	const newsPages = [
+/*	const newsPages = [
 		{
 			version: "(v 2.5)",
 			title: "Niet relevante transacties/facturen",
@@ -963,7 +964,30 @@ $dataFile = $wateringData['wateringId'] . '_boekingen.json';
 			text: "Het inboeken van een transactie of factuur gaat nu <strong>veel sneller</strong>, wat het <strong>gebruiksgemak aanzienlijk verbetert</strong>.<br>&nbsp;",
 			image: "img/news/2.5.performantie.png"
 		}
+	]; */
+
+// v2.6
+	const newsPages = [
+		{
+			version: "(v 2.6)",
+			title: "Restyling wijzigen posten",
+			text: "Het <strong>wijzigen van posten</strong> is <strong>gebruiksvriendelijker</strong> geworden. In plaats van een nieuwe pagina te openen, tonen we een <strong>popup venster</strong>. De posten en subposten worden nu weergegeven in de <strong>gekende tabelvorm</strong> die we gebruiken bij het dagboek en de rekeningen.",
+			image: "img/news/2.6.wijzigPosten.png"
+		},
+		{
+			version: "(v 2.6)",
+			title: "Dagboek documenten",
+			text: "In de <strong>dagboek documenten</strong> (PDF en Excel), is er onderaan ook de rij '<strong>Rekeningtotaal</strong>' toegevoegd. Dit geeft de stand van de rekening weer voor die maand.<br><br>",
+			image: "img/news/2.6.dagboekDocumenten.png"
+		},
+		{
+			version: "(v 2.6)",
+			title: "Versiebeheer",
+			text: "Je kan bekijken wat er <strong>gewijzigd is doorheen de versies</strong>. Deze informatie kan je terugvinden op de <strong>contactpagina</strong>.<br><br>",
+			image: "img/news/2.6.versiebeheer.png"
+		},
 	];	
+
 	
 	function PostTooltip() {}
 
