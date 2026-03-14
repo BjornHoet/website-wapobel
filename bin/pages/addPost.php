@@ -20,9 +20,9 @@ if($postType === 'P') {
 
     addPost($wateringId, $wateringJaar, $hoofdpostId, $nextPostId, $omschrijving);
 
-    // Update referenties
-    $posten = getPostenUseKey($wateringId, $wateringJaar, $hoofdpostUseKey);
-    $referentie = 1;
+    // Update referenties - only for the specific hoofdpostId
+	$posten = getPostenUseKey($wateringId, $wateringJaar, $hoofdpostUseKey);
+	$referentie = 1;
     foreach ($posten as $post) {
         $postIdTmp = $post['postId'];
         changePostRef($postIdTmp, $referentie);
@@ -41,7 +41,7 @@ if($postType === 'P') {
                 'parent' => null
             ];
         }
-        $referentie++;
+		$referentie = $referentie + 1;
     }
 }
 

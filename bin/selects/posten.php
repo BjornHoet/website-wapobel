@@ -142,7 +142,7 @@ function getStandaardpostenAllData() {
 
 function getPosten($wateringId, $jaar, $hoofdpostId) {
 	global $mysqli;
-	$result = $mysqli->query("SELECT * FROM posten WHERE wateringId='$wateringId' AND jaar='$jaar' AND hoofdpostId='$hoofdpostId' ORDER BY referentie");
+	$result = $mysqli->query("SELECT * FROM posten WHERE wateringId='$wateringId' AND jaar='$jaar' AND hoofdpostId='$hoofdpostId' ORDER BY postId");
 	return $result;
 	}
 
@@ -312,11 +312,17 @@ function changePost($postId, $referentie, $omschrijving, $raming, $actief) {
 
 function changePostRef($postId, $referentie) {
 	global $mysqli;
-	$sql = "UPDATE `posten` SET `referentie` = '$referentie' WHERE `posten`.`postId` = '$postId'";
-
-	$result = $mysqli->query($sql);
+	
+	// Debug: Log the values being passed
+	error_log("changePostRef: postId=$postId, referentie=$referentie");
+	
+	$stmt = $mysqli->prepare("UPDATE `posten` SET `referentie` = ? WHERE `postId` = ?");
+	$stmt->bind_param("si", $referentie, $postId);
+	$result = $stmt->execute();
+	$stmt->close();
+	
 	return $result;
-	}	
+	}
 
 function changeSubPost($subpostId, $referentie, $omschrijving, $raming, $actief) {
 	global $mysqli;

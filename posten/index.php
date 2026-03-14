@@ -301,34 +301,66 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
 			<div class="modal-content shadow-lg">
 				<div class="modal-header bg-light border-bottom">
-					<h4 class="modal-title text-primary font-weight-bold" id="postenModalLabel">
-						Wijzig posten
-					</h4>
+					<div class="h4 font-weight-bold mr-3" style="width: 50px;" id="modalHoofdPostRef">
+						<!-- Referentie wordt hier ingevuld -->
+					</div>
+					<div class="h4 flex-grow-1 mr-3" id="modalHoofdPostOmschrijving">
+						<!-- Omschrijving wordt hier ingevuld -->
+					</div>
+					<!-- Post toevoegen button for hoofdpostAndere -->
+					<div id="addPostButtonContainer" style="display: none;">
+						<button class="btn btn-primary btn-sm" id="addPostButton">
+							<i class="fas fa-plus-circle fa-sm fa-fw mr-1"></i>Post toevoegen
+						</button>
+					</div>
+
 					<button type="button" class="close" data-dismiss="modal" aria-label="Sluiten">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				
 				<div class="modal-body">
-					<!-- Header: Referentie en Omschrijving -->
-					<div class="d-flex align-items-center mb-3">
-						<div class="font-weight-bold mr-3" style="width: 50px;" id="modalHoofdPostRef">
-							<!-- Referentie wordt hier ingevuld -->
+					<!-- Header for hoofdpostAndere -->
+					<div id="hoofdpostAndereHeader" class="p-3 bg-light rounded border mb-2" style="display: none;">
+						<div class="d-flex align-items-center mb-2">
+							<i class="fas fa-info-circle text-primary mr-2"></i>
+							<h6 class="font-weight-bold mb-0 text-dark">Wijzigen van posten</h6>
 						</div>
-						<div class="flex-grow-1 mr-3" id="modalHoofdPostOmschrijving">
-							<!-- Omschrijving wordt hier ingevuld -->
+						<ul class="pl-3 mb-0 small text-muted ml-3">
+							<li>Wanneer je over een post of subpost gaat, worden de <strong>velden die je kan aanpassen groen gemarkeerd</strong>. Bij de hoofdpost 'Andere' kan je zowel posten als subposten toevoegen.</li>
+							<li>Bij <strong>posten</strong> en <strong>subposten</strong> kan je de <strong>referentie</strong>, <strong>omschrijving</strong> en het <strong>begrotingscijfer</strong> wijzigen.</li>
+							<li><strong>Posten</strong> en <strong>Subposten</strong> kan je <strong>verwijderen</strong> zolang er nog <strong>geen boekingen</strong> op gebeurd zijn.</li>
+							<li>Je kan <strong>nieuwe posten</strong> toevoegen door bovenaan op '<strong>Post toevoegen</strong>' te klikken.</li>
+							<li>Je kan <strong>nieuwe subposten</strong> toevoegen door op <strong><i class="fas fa-plus-circle fa-sm fa-fw mr-1"></i></strong>te klikken naast de betreffende post.</li>
+						</ul>
+					</div>
+
+					<!-- Header for normal posten -->
+					<div id="normalPostHeader" class="p-3 bg-light rounded border mb-2" style="display: none;">
+						<div class="d-flex align-items-center mb-2">
+							<i class="fas fa-info-circle text-primary mr-2"></i>
+							<h6 class="font-weight-bold mb-0 text-dark">Wijzigen van posten</h6>
 						</div>
+						<ul class="pl-3 mb-0 small text-muted ml-3">
+							<li>Wanneer je over een post of subpost gaat, worden de <strong>velden die je kan aanpassen groen gemarkeerd</strong>.</li>
+							<ul>
+								<li>Bij <strong>posten</strong> kan je enkel het <strong>begrotingscijfer</strong> wijzigen (indien er geen subposten zijn).</li>
+								<li>Bij <strong>subposten</strong> kan je de <strong>referentie</strong>, <strong>omschrijving</strong> en het <strong>begrotingscijfer</strong> wijzigen.</li>
+							</ul>
+							<li><strong>Subposten</strong> kan je <strong>verwijderen</strong> zolang er nog <strong>geen boekingen</strong> op gebeurd zijn.</li>
+							<li>Je kan <strong>nieuwe subposten</strong> toevoegen door op <strong><i class="fas fa-plus-circle fa-sm fa-fw mr-1"></i></strong>te klikken naast de betreffende post.</li>
+						</ul>
 					</div>
 
 					<!-- AG Grid Container -->
 					<div id="postenGrid" class="ag-theme-alpine" style="width: 100%; height: 500px;"></div>
 
 					<!-- Buttons onder de grid -->
-					<div class="mt-3">
+					<div class="mt-3 d-flex justify-content-end">
 						<button class="btn btn-primary btn-user btn-size" id="savePostenModal">
 							Opslaan
 						</button>
-						<button class="btn btn-secondary btn-user btn-size" data-dismiss="modal" id="cancelPostenModal">
+						<button class="btn btn-secondary btn-user btn-size ml-2" data-dismiss="modal" id="cancelPostenModal">
 							Annuleren
 						</button>
 					</div>
@@ -343,7 +375,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 			<div class="modal-content shadow-lg">
 				<div class="modal-header bg-light border-bottom">
 					<h4 class="modal-title text-primary font-weight-bold" id="postModalLabel">
-						Toevoegen van post
+						Subpost toevoegen
 					</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Sluiten">
 						<span aria-hidden="true">&times;</span>
@@ -373,7 +405,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 								Post
 							</label>
 							<div class="col-sm-9">
-								<select id="inputPost" name="postId" class="form-control form-control-sm"></select>
+								<select id="inputPost" name="postId" class="form-control form-control-sm" disabled></select>
 							</div>
 						</div>
 
@@ -446,7 +478,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 	const postenColumnDefs = [
 		{
 			headerName: "Acties",
-			width: 120,
+			width: 60,
 			cellRenderer: params => {
 				const d = params.data;
 				if (!d) return "";
@@ -456,8 +488,8 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 				container.style.alignItems = "center";
 				container.style.height = "100%";
 
-				// ➕ Subpost toevoegen (alleen bij posten)
-				if (d.type === "post") {
+				// ➕ Subpost toevoegen (alleen bij actieve posten)
+				if (d.type === "post" && d.actief) {
 					const addIcon = document.createElement("i");
 					addIcon.className = "fa fa-plus text-success";
 					addIcon.style.cursor = "pointer";
@@ -493,7 +525,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		{
 			field: "referentie",
 			headerName: "Referentie",
-			width: 120,
+			width: 70,
 			cellClass: params => params.data.type === "subpost" ? "subpost-indent" : "",
 			editable: params => params.data.actief && (params.data.type !== "post" || hoofdpostAndere),
 			cellClassRules: {
@@ -513,16 +545,23 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		{
 			field: "raming",
 			headerName: "Begroting",
-			width: 120,
+			width: 100,
 			editable: params => params.data.actief && (params.data.type !== "post" || !params.data.hasSub),
 			cellClassRules: {
 				"editable-highlight": params => params.data.actief && (params.data.type !== "post" || !params.data.hasSub)
+			},
+			valueGetter: params => {
+				// If it's a post with subposten, show empty string instead of 0.00
+				if (params.data.type === "post" && params.data.hasSub) {
+					return "";
+				}
+				return params.data.raming;
 			}
 		},
 		{
 			field: "actief",
 			headerName: "Actief",
-			width: 100,
+			width: 55,
 			cellRenderer: params => {
 				const id = `switch_${params.node.id}`;
 				const checked = params.value ? "checked" : "";
@@ -573,6 +612,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		domLayout: 'normal',
 		treeData: true,
 		singleClickEdit: true,
+		stopEditingWhenGridLosesFocus: true,
 		getDataPath: function(data) {
 			if (data.type === "post") {
 				return [data.id];
@@ -583,14 +623,26 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		getRowNodeId: function(data) {
 			return data.id;
 		},
-		defaultColDef: { filter: "agTextColumnFilter", cellStyle: { color: '#858796' }, resizable: true, sortable: true },
+		defaultColDef: { 
+			filter: "agTextColumnFilter", 
+			cellStyle: { color: '#858796' }, 
+			suppressMovable: true,
+    		lockPosition: true,
+			resizable: false, 
+			sortable: false,
+			singleClickEdit: true,
+			stopEditingWhenGridLosesFocus: true,
+			suppressMovableColumns: true,
+			suppressDragLeaveHidesColumns: true,
+			filter: false
+		},
 		columnDefs: postenColumnDefs,
 		rowClassRules: {
 			"post-row": params => params.data.type === "post",
 			"subpost-row": params => params.data.type === "subpost",
-			"text-gray-800": params => params.data.type === "post" && params.data.actief,
-			"text-gray-700": params => params.data.type === "subpost" && params.data.actief,
-			"text-inactive": params => !params.data.actief
+			"text-900": params => params.data.type === "post" && params.data.actief,
+			"text-gray-900": params => params.data.type === "subpost" && params.data.actief,
+			"text-gray-400": params => !params.data.actief
 		}
 	};
 
@@ -622,8 +674,18 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		fetch("../bin/selects/getHoofdPostData.php?hoofdpostId=" + currentHoofdpostId)
 			.then(res => res.json())
 			.then(hoofdpostData => {
+				window.hoofdpostAndere = hoofdpostData.andere === '1';
 
-				window.hoofdpostAndere = hoofdpostData.andere === 1;
+				// Show/hide the appropriate header based on hoofdpostAndere
+				if (window.hoofdpostAndere) {
+					$('#hoofdpostAndereHeader').show();
+					$('#normalPostHeader').hide();
+					$('#addPostButtonContainer').show();
+				} else {
+					$('#hoofdpostAndereHeader').hide();
+					$('#normalPostHeader').show();
+					$('#addPostButtonContainer').hide();
+				}
 
 				return fetch("../bin/selects/agGetPosten.php?hoofdpostId=" + currentHoofdpostId);
 			})
@@ -635,10 +697,13 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 				postenGridApi.setGridOption("rowData", data);
 
 			});
-	});	
+	});
 
 	// Save button in modal
 	$("#savePostenModal").click(() => {
+		// Stop editing and commit all changes
+		postenGridApi.stopEditing();
+		
 		const rows = [];
 		postenGridApi.forEachNode(node => rows.push(node.data));
 		$.post('../bin/pages/changePosten.php', { rows: JSON.stringify(rows) }, () => {
@@ -671,56 +736,39 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		$("#addPostSelect").show();
 	}
 
+	// Open post modal function
+	function openPostModal(postData) {
+		$("#postModal").modal("show");
+
+		// Post type forceren
+		$("#inputTypePost").val("P");
+		$("#typePost").hide();
+
+		// Geen parent post nodig voor posten
+		$("#addPostSelect").hide();
+		$("#inputPost").empty();
+	}
+
 	// Handle post/subpost form submission
 	$('#addPostForm').on('submit', function(e) {
 		e.preventDefault();
 		const formData = $(this).serialize();
 		
 		$.post($(this).attr('action'), formData, function(newRow) {
-			// Ensure all existing nodes have a path
-			postenGridApi.forEachNode(node => {
-				if(!node.data.path) {
-					node.data.path = node.data.parent ? [node.data.parent, node.data.id] : [node.data.id];
-				}
-			});
-
-			// Find parent node
-			let parentNode = null;
-			if(newRow.parent) {
-				parentNode = postenGridApi.getRowNode(newRow.parent);
-				if(!parentNode) {
-					postenGridApi.forEachNode(node => {
-						if(node.data.id === newRow.parent) parentNode = node;
-					});
-				}
-			}
-
-			// Set path for new row
-			if(parentNode) {
-				let counter = 0;
-				newRow.path = parentNode.data.path.concat([newRow.id]);
-
-				postenGridApi.forEachNode(node => {
-					if(node.data.parent === parentNode.data.id) counter++;
+			// Clear the grid and reload all data to ensure consistency
+			postenGridApi.showLoadingOverlay();
+			
+			// Reload the entire grid data
+			fetch("../bin/selects/agGetPosten.php?hoofdpostId=" + currentHoofdpostId)
+				.then(res => res.json())
+				.then(data => {
+					data.forEach(r => r.path = r.parent ? [r.parent, r.id] : [r.id]);
+					postenGridApi.setGridOption("rowData", data);
 				});
-				counter++;
-
-				// Add as child of parent
-				postenGridApi.applyTransaction({
-					add: [newRow],
-					addIndex: parentNode.childIndex + counter
-				});
-			} else {
-				newRow.path = [newRow.id];
-				postenGridApi.applyTransaction({ add: [newRow] });
-			}
-
+			
 			// Clear form and close modal
 			$('#addPostForm')[0].reset();
 			$('#postModal').modal('hide');
-
-			// Refresh grid sorting
-			postenGridApi.refreshClientSideRowModel('sort');
 		});
 	});
 
@@ -741,6 +789,14 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 			$("#addPostSelect").hide();
 			$("#inputPost").empty();
 		}
+	});
+
+	// Handle "Post toevoegen" button click
+	$(document).on('click', '#addPostButton', function(e) {
+		e.preventDefault();
+		// Set the hoofdpostId in the hidden input field
+		$("#inputHoofdpostId").val(currentHoofdpostId);
+		openPostModal(null);
 	});
 
 	// Modal close handler - clear immediately when closing starts

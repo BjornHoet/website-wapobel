@@ -548,7 +548,7 @@ button.link-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !i
     white-space: normal !important;
     line-height: 2;
 	border-right: 1px solid #ccc; /* vertical line */
-	color: #3a3b45 !important;
+	color: #3a3b45;
 }
 
 .ag-floating-bottom .ag-cell {
@@ -883,6 +883,97 @@ button.link-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !i
 .row-empty.ag-row-focus {
   background-color: inherit; /* use the AG Grid hover color */
 }
+
+/* Text Gray Color Classes */
+.text-gray-100 { color: #f8f9fc !important; }
+.text-gray-200 { color: #eaecf4 !important; }
+.text-gray-300 { color: #dddfeb !important; }
+.text-gray-400 { color: #d1d3e2 !important; }
+.text-gray-500 { color: #b7b9cc !important; }
+.text-gray-600 { color: #858796 !important; }
+.text-gray-700 { color: #6e707e !important; }
+.text-gray-800 { color: #5a5c69 !important; }
+.text-gray-900 { color: #3a3b45 !important; }
+
+/* AG Grid specific overrides for text colors */
+.ag-theme-alpine .ag-cell .text-gray-100 { color: #f8f9fc !important; }
+.ag-theme-alpine .ag-cell .text-gray-200 { color: #eaecf4 !important; }
+.ag-theme-alpine .ag-cell .text-gray-300 { color: #dddfeb !important; }
+.ag-theme-alpine .ag-cell .text-gray-400 { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell .text-gray-500 { color: #b7b9cc !important; }
+.ag-theme-alpine .ag-cell .text-gray-600 { color: #858796 !important; }
+.ag-theme-alpine .ag-cell .text-gray-700 { color: #6e707e !important; }
+.ag-theme-alpine .ag-cell .text-gray-800 { color: #5a5c69 !important; }
+.ag-theme-alpine .ag-cell .text-gray-900 { color: #3a3b45 !important; }
+
+/* Alternative: Override ag-cell color directly when text-gray classes are used */
+.ag-theme-alpine .ag-cell.text-gray-100 { color: #f8f9fc !important; }
+.ag-theme-alpine .ag-cell.text-gray-200 { color: #eaecf4 !important; }
+.ag-theme-alpine .ag-cell.text-gray-300 { color: #dddfeb !important; }
+.ag-theme-alpine .ag-cell.text-gray-400 { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell.text-gray-500 { color: #b7b9cc !important; }
+.ag-theme-alpine .ag-cell.text-gray-600 { color: #858796 !important; }
+.ag-theme-alpine .ag-cell.text-gray-700 { color: #6e707e !important; }
+.ag-theme-alpine .ag-cell.text-gray-800 { color: #5a5c69 !important; }
+.ag-theme-alpine .ag-cell.text-gray-900 { color: #3a3b45 !important; }
+
+/* Override inline styles on AG Grid cells */
+.ag-theme-alpine .ag-cell.text-black[style] { color: #000000 !important; }
+.ag-theme-alpine .ag-cell.text-gray-100[style] { color: #f8f9fc !important; }
+.ag-theme-alpine .ag-cell.text-gray-200[style] { color: #eaecf4 !important; }
+.ag-theme-alpine .ag-cell.text-gray-300[style] { color: #dddfeb !important; }
+.ag-theme-alpine .ag-cell.text-gray-400[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell.text-gray-500[style] { color: #b7b9cc !important; }
+.ag-theme-alpine .ag-cell.text-gray-600[style] { color: #858796 !important; }
+.ag-theme-alpine .ag-cell.text-gray-700[style] { color: #6e707e !important; }
+.ag-theme-alpine .ag-cell.text-gray-800[style] { color: #5a5c69 !important; }
+.ag-theme-alpine .ag-cell.text-gray-900[style] { color: #3a3b45 !important; }
+
+/* Override inline styles for inactive rows */
+.ag-theme-alpine .ag-cell.table-row-inactive[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell.subpost-indent[style] { color: #d1d3e2 !important; }
+
+/* Make inactive posts have the same gray color as inactive subposts */
+.ag-theme-alpine .ag-cell.post-row[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell.post-row { color: #d1d3e2 !important; }
+
+/* Override inline styles for posts with text-gray classes */
+.ag-theme-alpine .ag-cell.post-row.text-gray-400[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .ag-cell.post-row.text-gray-500[style] { color: #b7b9cc !important; }
+.ag-theme-alpine .ag-cell.post-row.text-gray-600[style] { color: #858796 !important; }
+.ag-theme-alpine .ag-cell.post-row.text-gray-700[style] { color: #6e707e !important; }
+.ag-theme-alpine .ag-cell.post-row.text-gray-800[style] { color: #5a5c69 !important; }
+.ag-theme-alpine .ag-cell.post-row.text-gray-900[style] { color: #3a3b45 !important; }
+
+/* Override inline styles for cells within rows that have text-gray classes */
+.ag-theme-alpine .post-row.text-gray-400 .ag-cell[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .post-row.text-gray-500 .ag-cell[style] { color: #b7b9cc !important; }
+.ag-theme-alpine .post-row.text-gray-600 .ag-cell[style] { color: #858796 !important; }
+.ag-theme-alpine .post-row.text-gray-700 .ag-cell[style] { color: #6e707e !important; }
+.ag-theme-alpine .post-row.text-gray-800 .ag-cell[style] { color: #5a5c69 !important; }
+.ag-theme-alpine .post-row.text-gray-900 .ag-cell[style] { color: #3a3b45 !important; }
+
+/* Override inline styles for cells within rows that have text-black class */
+.ag-theme-alpine .post-row.text-black .ag-cell[style] { color: #000000 !important; }
+
+/* Override inline styles for cells within active post rows */
+.ag-theme-alpine .post-row .ag-cell[style] { color: #3a3b45 !important; }
+
+/* Hide the 'Add subpost' button when a post is inactive */
+.ag-theme-alpine .post-row.table-row-inactive .fa-plus {
+  display: none !important;
+}
+
+/* Override inline styles for cells within subpost rows that have text-gray classes */
+.ag-theme-alpine .subpost-row.text-gray-100 .ag-cell[style] { color: #f8f9fc !important; }
+.ag-theme-alpine .subpost-row.text-gray-200 .ag-cell[style] { color: #eaecf4 !important; }
+.ag-theme-alpine .subpost-row.text-gray-300 .ag-cell[style] { color: #dddfeb !important; }
+.ag-theme-alpine .subpost-row.text-gray-400 .ag-cell[style] { color: #d1d3e2 !important; }
+.ag-theme-alpine .subpost-row.text-gray-500 .ag-cell[style] { color: #b7b9cc !important; }
+.ag-theme-alpine .subpost-row.text-gray-600 .ag-cell[style] { color: #858796 !important; }
+.ag-theme-alpine .subpost-row.text-gray-700 .ag-cell[style] { color: #6e707e !important; }
+.ag-theme-alpine .subpost-row.text-gray-800 .ag-cell[style] { color: #5a5c69 !important; }
+.ag-theme-alpine .subpost-row.text-gray-900 .ag-cell[style] { color: #3a3b45 !important; }
 
 #fixedMessageContainer {
 	position: fixed;

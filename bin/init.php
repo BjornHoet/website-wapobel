@@ -82,7 +82,7 @@ else {
 $_SESSION['LAST_ACTIVITY'] = $time;
 
 setlocale(LC_MONETARY, 'nl_BE');
-error_reporting(2);
+error_reporting(0);
 
 // Define data path
 define('DATA_PATH', __DIR__ . '/../data/');

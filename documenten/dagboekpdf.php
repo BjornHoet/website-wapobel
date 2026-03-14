@@ -51,6 +51,28 @@ $boekingen = getBoekingen($wateringData['wateringId'], $wateringJaar, $maand, $u
 $overdrachtDienstJaarMaand_O = 0;
 $overdrachtDienstJaarMaand_U = 0;
 
+// Calculate totals for footer rows
+$totals = [];
+foreach ($rekeningen as $rekening) {
+    $totals['rek_' . $rekening['rekeningId'] . '_O'] = 0;
+    $totals['rek_' . $rekening['rekeningId'] . '_U'] = 0;
+}
+
+// Calculate totals from boekingen
+foreach ($boekingen as $boeking) {
+    foreach ($rekeningen as $rekening) {
+        $boekingsBedragO = getBoekingBedragData($boeking['boekId'], $rekening['rekeningId'], 'O');
+        $boekingsBedragU = getBoekingBedragData($boeking['boekId'], $rekening['rekeningId'], 'U');
+        
+        if ($boekingsBedragO['bedrag'] !== '' && $boekingsBedragO['bedrag'] !== '0.00') {
+            $totals['rek_' . $rekening['rekeningId'] . '_O'] += $boekingsBedragO['bedrag'];
+        }
+        if ($boekingsBedragU['bedrag'] !== '' && $boekingsBedragU['bedrag'] !== '0.00') {
+            $totals['rek_' . $rekening['rekeningId'] . '_U'] += $boekingsBedragU['bedrag'];
+        }
+    }
+}
+
 $aantalRekNoKas = 0;
 foreach($rekeningen as $rek) {
 	if($rek['rekening'] !== 'KAS') {
@@ -236,6 +258,21 @@ foreach ($rekeningen as $rekening) {
 	$counter = $counter + 1;	
 	$overTeDragen = ${'rek_'.$rekening['rekeningId'].'_O'} - ${'rek_'.$rekening['rekeningId'].'_U'};
 	$html = $html . '<th style="border-right: 0.5px solid #e3e6f0;" class=" text-left">' . currencyConv($overTeDragen) . '</th><th ' . $tdClass . '></th>';
+	}
+$html = $html . '</tr><tr class="thead-dark text-left"><th style="border-right: 0.5px solid #e3e6f0;" class="text-left" colspan="' . $colSpanHeading . '">REKENINGTOTAAL</th>';
+$html = $html . '<th style="border-right: 0.5px solid #e3e6f0;" class=" text-left"></th>';
+$html = $html . '<th style="border-right: 0.5px solid #e3e6f0;" class=" text-left"></th>';
+
+$counter = 0;
+$tdClass = 'style="border-right: 0.5px solid #e3e6f0;"';
+foreach ($rekeningen as $rekening) {
+	if($counter === $aantalRekNoKas) {
+		$tdClass = '';
+		}
+	$counter = $counter + 1;	
+	$rekBalance = getOverdracht($wateringData['wateringId'], $wateringJaar, '1', $rekening['rekeningId'], true);
+	$rekBalance = $rekBalance + (${'rek_'.$rekening['rekeningId'].'_O'} - ${'rek_'.$rekening['rekeningId'].'_U'});
+	$html = $html . '<th style="border-right: 0.5px solid #e3e6f0;" class=" text-left">' . currencyConv($rekBalance) . '</th><th ' . $tdClass . '></th>';
 	}
 $html = $html . '</tr></tfoot>';
 

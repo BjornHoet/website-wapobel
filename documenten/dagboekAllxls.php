@@ -16,6 +16,13 @@ $hoofdPosten = getHoofdPostenAll($wateringJaar);
 $rekeningen = getRekeningen($wateringData['wateringId'], $wateringJaar, $useKAS, 'X', 'A');
 $month = (int)getLastMonth($wateringData['wateringId'], $wateringJaar);
 
+// Calculate totals for footer rows
+$totals = [];
+foreach ($rekeningen as $rekening) {
+    $totals['rek_' . $rekening['rekeningId'] . '_O'] = 0;
+    $totals['rek_' . $rekening['rekeningId'] . '_U'] = 0;
+}
+
 // Create spreadsheet
 $spreadsheet = new Spreadsheet();
 
@@ -227,6 +234,27 @@ for ($maand = 1; $maand <= $month; $maand++) {
         $colO=Coordinate::stringFromColumnIndex($rekeningColStart+($i*2));
         $colU=Coordinate::stringFromColumnIndex($rekeningColStart+($i*2+1));
         $sheet->setCellValue($colO.$row,'='.$colO.($row-1).'-'.$colU.($row-1));
+        $sheet->setCellValue($colU.$row,'');
+    }
+    $row++;
+
+    // REKENINGTOTAAL row
+    $sheet->setCellValue('A'.$row,'REKENINGTOTAAL');
+    $sheet->getStyle('A'.$row)->getFont()->setBold(true);
+    $sheet->mergeCells('A'.$row.':E'.$row);
+    $sheet->setCellValue($ontvangCol.$row,'');
+    $sheet->setCellValue('G'.$row,'');
+    foreach ($rekeningen as $i=>$rekening) {
+        $colO=Coordinate::stringFromColumnIndex($rekeningColStart+($i*2));
+        $colU=Coordinate::stringFromColumnIndex($rekeningColStart+($i*2+1));
+        // Calculate rekening balance: opening balance + (Ontvangsten - Uitgaven)
+        $rekBalance = getOverdracht($wateringData['wateringId'], $wateringJaar, '1', $rekening['rekeningId'], true);
+        $ontvangsten = $totals['rek_' . $rekening['rekeningId'] . '_O'];
+        $uitgaven = $totals['rek_' . $rekening['rekeningId'] . '_U'];
+        
+        // Calculate total for this rekening
+        $rekeningTotaal = $rekBalance + ($ontvangsten - $uitgaven);
+        $sheet->setCellValue($colO.$row, $rekeningTotaal);
         $sheet->setCellValue($colU.$row,'');
     }
 
