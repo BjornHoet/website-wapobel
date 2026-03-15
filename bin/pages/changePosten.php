@@ -14,6 +14,10 @@ if (isset($_POST['rows'])) {
                     $referentie = $row['referentie'] ?? '';
                     $omschrijving = $row['omschrijving'] ?? '';
                     $raming = $row['raming'] ?? 0;
+                    // Convert empty string to 0 for posts with subposten
+                    if ($raming === '') {
+                        $raming = 0;
+                    }
                     $actief = $row['actief'] ? 'X' : '';
                     
                     changePost($postId, $referentie, $omschrijving, $raming, $actief);

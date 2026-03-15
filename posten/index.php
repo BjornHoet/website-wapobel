@@ -399,13 +399,13 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 							</div>
 						</div>
 
-						<!-- Parent post dropdown (alleen voor subposts) -->
+						<!-- Parent post readonly text field (alleen voor subposts) -->
 						<div id="addPostSelect" class="form-group row mb-2">
 							<label for="inputPost" class="col-sm-3 col-form-label col-form-label-sm font-weight-bold">
 								Post
 							</label>
 							<div class="col-sm-9">
-								<select id="inputPost" name="postId" class="form-control form-control-sm" disabled></select>
+								<input type="text" id="inputPost" name="postId" class="form-control form-control-sm" readonly>
 							</div>
 						</div>
 
@@ -556,6 +556,30 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 					return "";
 				}
 				return params.data.raming;
+			},
+			cellEditor: 'agTextCellEditor',
+			cellEditorParams: {
+				useFormatter: true,
+				allowedCharPattern: '0123456789.-',
+				maxLength: 15
+			},
+			valueParser: params => {
+				// Parse and validate the input value
+				const value = params.newValue;
+				if (value === '' || value === null || value === undefined) {
+					return 0;
+				}
+				
+				// Remove any non-numeric characters except decimal point and minus sign
+				const cleaned = value.toString().replace(/[^0-9.-]/g, '');
+				
+				// Check if it's a valid decimal number
+				if (/^-?\d*\.?\d+$/.test(cleaned)) {
+					return parseFloat(cleaned);
+				}
+				
+				// If invalid, return the original value or 0
+				return params.oldValue || 0;
 			}
 		},
 		{
@@ -702,6 +726,7 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 	// Save button in modal
 	$("#savePostenModal").click(() => {
 		// Stop editing and commit all changes
+		$.showLoader({ message: 'De wijzigingen worden opgeslagen…' });
 		postenGridApi.stopEditing();
 		
 		const rows = [];
@@ -728,10 +753,9 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		$("#inputTypePost").val("S");
 		$("#typePost").hide();
 
-		// Parent post automatisch selecteren
-		$("#inputPost").empty().append(
-			`<option value="${postData.postId}" selected>${postData.referentie} - ${postData.omschrijving}</option>`
-		);
+		// Parent post automatisch invullen in readonly text field
+		$("#inputPost").val(`${postData.referentie} - ${postData.omschrijving}`);
+		$("#inputPost").attr('data-post-id', postData.postId);
 
 		$("#addPostSelect").show();
 	}
@@ -752,9 +776,25 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 	// Handle post/subpost form submission
 	$('#addPostForm').on('submit', function(e) {
 		e.preventDefault();
-		const formData = $(this).serialize();
 		
-		$.post($(this).attr('action'), formData, function(newRow) {
+		// Get the form data as object
+		const formData = $(this).serializeArray();
+		const postData = {};
+		
+		// Convert to object
+		$.each(formData, function(i, field) {
+			postData[field.name] = field.value;
+		});
+		
+		// For subposts, we need to get the actual post ID from the data attribute
+		if ($("#inputTypePost").val() === 'S') {
+			const selectedPostId = $("#inputPost").attr('data-post-id');
+			if (selectedPostId) {
+				postData.postId = selectedPostId;
+			}
+		}
+		
+		$.post($(this).attr('action'), postData, function(newRow) {
 			// Clear the grid and reload all data to ensure consistency
 			postenGridApi.showLoadingOverlay();
 			
@@ -772,24 +812,44 @@ $titelBU = getHoofdPostType('BU', $wateringJaar);
 		});
 	});
 
-	// Handle type select change (Post/Subpost)
-	$("select[name='postType']").change(function () {
-		var postType = $(this).val();
-		var hoofdpostId = $("#inputHoofdpostId").val();
+		// Handle type select change (Post/Subpost)
+		$("select[name='postType']").change(function () {
+			var postType = $(this).val();
+			var hoofdpostId = $("#inputHoofdpostId").val();
 
-		if(postType === 'S') {
-			$("#addPostSelect").show();
-			$.getJSON("../bin/selects/getPosten.php", { id: hoofdpostId }, function(data) {
-				$("#inputPost").empty();
-				$.each(data, function(key, value) {
-					$("#inputPost").append('<option value="'+ key +'">'+ value +'</option>');
+			if(postType === 'S') {
+				$("#addPostSelect").show();
+				$.getJSON("../bin/selects/getPosten.php", { id: hoofdpostId }, function(data) {
+					$("#inputPost").val('');
+					// For readonly text field, we'll populate it when the user selects a post from the dropdown
+					// But since it's readonly, we need to handle this differently
+					// Let's create a hidden select for data retrieval and show a text field
+					if ($("#inputPost").is("input[type='text']")) {
+						// Create a temporary select to get the data
+						var tempSelect = $('<select>');
+						$.each(data, function(key, value) {
+							tempSelect.append('<option value="'+ key +'">'+ value +'</option>');
+						});
+						
+						// If there's only one option, auto-select it
+						if (tempSelect.children().length === 1) {
+							var option = tempSelect.children().first();
+							$("#inputPost").val(option.text());
+							$("#inputPost").attr('data-post-id', option.val());
+						} else {
+							// For multiple options, we need to show a dropdown temporarily
+							// But since the field is readonly, we'll handle this in the subpost modal
+							$("#inputPost").val('Selecteer een post');
+							$("#inputPost").attr('data-post-id', '');
+						}
+					}
 				});
-			});
-		} else {
-			$("#addPostSelect").hide();
-			$("#inputPost").empty();
-		}
-	});
+			} else {
+				$("#addPostSelect").hide();
+				$("#inputPost").val('');
+				$("#inputPost").removeAttr('data-post-id');
+			}
+		});
 
 	// Handle "Post toevoegen" button click
 	$(document).on('click', '#addPostButton', function(e) {
